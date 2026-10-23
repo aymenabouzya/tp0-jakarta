@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>TP 0 - Introduction à Jakarta EE</title>
+</h:head>
+<h:body>
+    <h3>Chat Jakarta EE - TP 0</h3>
+    <h:form>
+        <p:panelGrid columns="2">
+            <h:outputLabel value="Rôle de l'API :" />
+            <p:selectOneMenu value="#{bb.roleAPI}" disabled="#{not empty bb.conversation}">
+                <f:selectItem itemLabel="Sélectionner un rôle" itemValue="" />
+                <f:selectItem itemLabel="Assistant" itemValue="Assistant" />
+                <f:selectItem itemLabel="Traducteur français-anglais" itemValue="Traducteur français-anglais" />
+                <f:selectItem itemLabel="Guide touristique" itemValue="Guide touristique" />
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Votre question :" />
+            <p:inputTextarea value="#{bb.question}" rows="3" cols="50" required="true" requiredMessage="Veuillez saisir une question !" />
+
+            <h:outputLabel value="Réponse :" />
+            <p:inputTextarea value="#{bb.reponse}" rows="3" cols="50" readonly="true" />
+        </p:panelGrid>
+
+        <br/>
+        <p:commandButton value="Envoyer" action="#{bb.envoyer()}" update="@form" />
+        <p:commandButton value="Nouveau chat" action="#{bb.nouveauChat()}" style="margin-left: 10px;" />
+
+        <br/><br/>
+        <h4>Historique de la conversation :</h4>
+        <p:inputTextarea value="#{bb.conversation}" rows="10" cols="70" readonly="true" />
+    </h:form>
+</h:body>
+</html>
