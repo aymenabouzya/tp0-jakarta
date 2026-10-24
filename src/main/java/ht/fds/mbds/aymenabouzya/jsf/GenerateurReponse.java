@@ -1,4 +1,4 @@
-package aymen.abouzya.tp0.jsf;
+package ht.fds.mbds.aymenabouzya.jsf;
 
 import jakarta.enterprise.context.Dependent;
 import java.io.Serializable;

@@ -5,34 +5,68 @@
       xmlns:f="jakarta.faces.core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>TP 0 - Introduction à Jakarta EE</title>
+    <h:outputStylesheet name="css/mycsslayout.css"/>
+    <h:outputScript name="js/script.js" target="head"/>
+    <title>Conversation</title>
 </h:head>
 <h:body>
-    <h3>Chat Jakarta EE - TP 0</h3>
-    <h:form>
-        <p:panelGrid columns="2">
-            <h:outputLabel value="Rôle de l'API :" />
-            <p:selectOneMenu value="#{bb.roleAPI}" disabled="#{not empty bb.conversation}">
-                <f:selectItem itemLabel="Sélectionner un rôle" itemValue="" />
-                <f:selectItem itemLabel="Assistant" itemValue="Assistant" />
-                <f:selectItem itemLabel="Traducteur français-anglais" itemValue="Traducteur français-anglais" />
-                <f:selectItem itemLabel="Guide touristique" itemValue="Guide touristique" />
+    <f:view>
+
+        <!-- Les éventuels messages d'erreur non liés à un champ particulier sont affichés ici en rouge -->
+        <h:messages errorStyle="color: red" showDetail="true" showSummary="false" globalOnly="true"/>
+
+        <h:form id="form">
+
+            <p:outputLabel for="rolesysteme" value="Rôle de l'API : "/>
+            <!-- La valeur choisie dans cette liste déroulante sera affectée
+            à la propriété systemRole du backing bean. Cette liste est figée (disabled)
+            dès qu'une requête a été envoyée au serveur. -->
+            <p:selectOneMenu id="rolesysteme" value="#{bb.roleSysteme}" editable="true"
+                             required="true" requiredMessage="Vous devez indiquer le rôle de l'API"
+                             disabled="#{! bb.roleSystemeChangeable}">
+                <f:selectItems value="#{bb.rolesSysteme}"/>
             </p:selectOneMenu>
+            <!-- Message d'erreur ici si l'utilisateur oublie d'indiquer un rôle système. -->
+            <h:message for="rolesysteme" errorStyle="color: red" />
 
-            <h:outputLabel value="Votre question :" />
-            <p:inputTextarea value="#{bb.question}" rows="3" cols="50" required="true" requiredMessage="Veuillez saisir une question !" />
+            <!-- Si on veut commencer un nouveau chat avec, éventuellement, un autre rôle. -->
+            <h:outputText value="  "/>
+            <h:commandButton value="Nouveau chat" action="#{bb.nouveauChat}" />
 
-            <h:outputLabel value="Réponse :" />
-            <p:inputTextarea value="#{bb.reponse}" rows="3" cols="50" readonly="true" />
-        </p:panelGrid>
+            <!-- Les éléments de la page sont disposés en deux colonnes :
+            question et réponse à gauche et historique de la conversation à droite. -->
+            <h:panelGrid id="paneltotal" columns="2" columnClasses="topAligned,topAligned">
 
-        <br/>
-        <p:commandButton value="Envoyer" action="#{bb.envoyer()}" update="@form" />
-        <p:commandButton value="Nouveau chat" action="#{bb.nouveauChat()}" style="margin-left: 10px;" />
+                <h:panelGrid id="panelgauche" columns="1">
+                    <h:panelGrid id="questionetreponse" columns="1">
+                        <h:panelGroup>
+                            <h:outputText value="Question :"/>
+                            <button type="button" onclick="copyToClipboard('question')">Copier question</button>
+                            <button type="button" onclick="toutEffacer()">Effacer question et réponse</button>
+                        </h:panelGroup>
+                        <h:inputTextarea id="question" value="#{bb.question}" title="Question"
+                                         cols="50" rows="5"/>
+                        <h:commandButton value="Envoyer la question" action="#{bb.envoyer}"/>
+                        <h:panelGroup>
+                            <h:outputText value="Réponse :"/>
+                            <button type="button" onclick="copyToClipboard('reponse')">Copier réponse</button>
+                        </h:panelGroup>
+                        <h:inputTextarea id="reponse" value="#{bb.reponse}" title="Réponse"
+                                         cols="50" rows="15"/>
+                    </h:panelGrid>
 
-        <br/><br/>
-        <h4>Historique de la conversation :</h4>
-        <p:inputTextarea value="#{bb.conversation}" rows="10" cols="70" readonly="true" />
-    </h:form>
+                </h:panelGrid>
+                <h:panelGrid id="paneldroit" columns="1" style="vertical-align: top;">
+                    <h:panelGroup>
+                        <h:outputText value="Conversation :"/>
+                        <button type="button" onclick="copyToClipboard('conversation')">Copier conversation</button>
+                    </h:panelGroup>
+                    <h:inputTextarea id="conversation" rows="30" cols="50" readonly="true"
+                                     value="#{bb.conversation}" title="Conversation entière"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </h:form>
+    </f:view>
 </h:body>
 </html>

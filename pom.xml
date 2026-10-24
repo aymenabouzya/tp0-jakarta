@@ -17,20 +17,19 @@
     </properties>
 
     <dependencies>
-        <!-- Dépendance Jakarta EE 10/11 -->
+        <!-- Dépendance Jakarta EE 11 exigée par le TP -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>10.0.0</version>
+            <version>11.0.0</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Dépendance PrimeFaces pour le TP avec le classifier jakarta (Obligatoire) -->
+        <!-- Dépendance PrimeFaces 16.0.0 exigée par le TP -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>14.0.0</version>
-            <classifier>jakarta</classifier>
+            <version>16.0.0</version>
         </dependency>
     </dependencies>
 
