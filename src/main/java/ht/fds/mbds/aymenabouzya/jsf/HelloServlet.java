@@ -1,4 +1,4 @@
-package com.example.tp0jakarta;
+package ht.fds.mbds.aymenabouzya.jsf;
 
 import java.io.*;
 
@@ -10,7 +10,8 @@ public class HelloServlet extends HttpServlet {
     private String message;
 
     public void init() {
-        message = "Hello World!";
+        // Le message a été modifié ici selon les consignes du TP
+        message = "Hello Aymen, TP0 correctement configuré !";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
