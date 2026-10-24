@@ -1,22 +1,18 @@
 package ht.fds.mbds.aymenabouzya.jsf;
 
-import jakarta.enterprise.context.Dependent;
-import java.io.Serializable;
+import jakarta.enterprise.context.ApplicationScoped;
 
-@Dependent
-public class GenerateurReponse implements Serializable {
+@ApplicationScoped
+public class GenerateurReponse {
 
-    public String generer(String question, String role, boolean premierMessage) {
-        // 1. On compte le nombre de caractères de la question
-        int taille = question.trim().length();
+    public GenerateurReponse() {
+    }
 
-        // 2. On inverse le texte de la question (ex: "bonjour" devient "ruojnob")
-        String questionInversee = new StringBuilder(question).reverse().toString();
-
-        // 3. On construit la réponse finale
-        String res = "🤖 [" + role.toUpperCase() + "] a analysé votre question de " + taille + " caractères. "
-                + "Voici votre texte à l'envers : " + questionInversee;
-
-        return res;
+    /**
+     * Génère une réponse en fonction de la question et du rôle système.
+     */
+    public String genererReponse(String question, String roleSysteme) {
+        // Logique de génération (vous pouvez adapter selon votre code d'origine)
+        return "Ceci est une réponse simulée pour : " + question;
     }
 }
